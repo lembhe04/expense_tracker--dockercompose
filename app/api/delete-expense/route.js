@@ -6,15 +6,37 @@ export async function DELETE(req) {
 
     const { id } = await req.json();
 
-    await pool.query(
-      "DELETE FROM expenses WHERE id=$1",
+    if (!id) {
+      return NextResponse.json(
+        { error: "ID required" },
+        { status: 400 }
+      );
+    }
+
+    const result = await pool.query(
+      "DELETE FROM expenses WHERE id=$1 RETURNING *",
       [id]
     );
 
-    return NextResponse.json({ message: "Expense deleted" });
+    if (result.rowCount === 0) {
+      return NextResponse.json(
+        { error: "Expense not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json({
+      message: "Expense deleted successfully"
+    });
 
   } catch (err) {
+
     console.error(err);
-    return NextResponse.json({ error: "Delete failed" }, { status: 500 });
+
+    return NextResponse.json(
+      { error: "Delete failed" },
+      { status: 500 }
+    );
+
   }
 }
