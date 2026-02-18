@@ -22,12 +22,19 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (res.ok) {
+
+        // ⭐ STORE USER ID (VERY IMPORTANT)
+        localStorage.setItem("user_id", data.user_id);
+
         setMessage("Login successful!");
-        // Redirect to dashboard or add-expense page after login
-        setTimeout(() => router.push("/"), 1000);
+
+        // redirect to dashboard
+        setTimeout(() => router.push("/"), 800);
+
       } else {
         setMessage(data.error || "Login failed");
       }
+
     } catch (err) {
       console.error(err);
       setMessage("Error logging in");
@@ -70,7 +77,9 @@ export default function LoginPage() {
         {message && (
           <p
             className={`text-center ${
-              message.includes("success") ? "text-green-600" : "text-red-600"
+              message.toLowerCase().includes("success")
+                ? "text-green-600"
+                : "text-red-600"
             }`}
           >
             {message}
