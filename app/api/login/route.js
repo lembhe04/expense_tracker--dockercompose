@@ -23,7 +23,12 @@ export async function POST(req) {
       return NextResponse.json({ error: "Wrong password" }, { status: 400 });
     }
 
-    return NextResponse.json({ message: "Login success" });
+    // ⭐⭐⭐ RETURN USER ID ⭐⭐⭐
+    return NextResponse.json({
+      message: "Login success",
+      user_id: user.id,
+      email: user.email
+    });
 
   } catch (err) {
     console.error(err);
