@@ -35,7 +35,8 @@ A simple full-stack Expense Tracker built using Next.js, PostgreSQL, and Docker.
 ---
 
 ## 📂 Project Structure
-expense-tracker/
+```
+ expense-tracker/
 │
 ├── app/
 │ ├── page.js
@@ -48,7 +49,7 @@ expense-tracker/
 └── README.md
 
 ---
-
+```
 ## 🐳 Run With Docker
 
 Start the application:
